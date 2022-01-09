@@ -47,5 +47,19 @@ RSpec.describe Item, type: :model do
       expected = [item_10, item_9, item_8, item_7, item_6,]
       expect(actual).to eq(expected)
     end
+
+    it '#best_date_for_item' do
+      merchant = Merchant.create!(name: 'merchant name')
+      item_1 = Item.create!(merchant_id: merchant.id, name: 'widget-1', description: 'widget description', unit_price: 100)
+      customer_1 = Customer.create!(first_name: 'customer', last_name: 'customer_last_name')
+      invoice_1 = Invoice.create!(customer_id: customer_1.id, created_at: "2012-03-25 09:54:09", updated_at: "2012-03-25 09:54:09")
+      invoice_2 = Invoice.create!(customer_id: customer_1.id, created_at: "2012-03-25 09:54:09", updated_at: "2012-03-25 09:54:09")
+      invoice_3 = Invoice.create!(customer_id: customer_1.id, created_at: "2012-03-25 09:54:09", updated_at: "2012-03-25 09:54:09")
+      invoice_item_1 = InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_1.id, quantity: 20, unit_price: 1000)
+      invoice_item_2 = InvoiceItem.create!(invoice_id: invoice_2.id, item_id: item_1.id, quantity: 30, unit_price: 1000)
+      invoice_item_3 = InvoiceItem.create!(invoice_id: invoice_3.id, item_id: item_1.id, quantity: 40, unit_price: 1000)
+      Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_1.id)
+      Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-26 14:54:09", updated_at: "2012-03-26 14:54:09", invoice_id: invoice_2.id)
+      Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-25 14:54:09", updated_at: "2012-03-25 14:54:09", invoice_id: invoice_3.id)
   end
 end

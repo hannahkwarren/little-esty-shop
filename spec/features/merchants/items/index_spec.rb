@@ -50,7 +50,7 @@ RSpec.describe 'Merchant Items Index page' do
     end
 
     find("#enable-#{item1.id}").click
-    
+
     within '.enabled-items' do
       expect(page).to have_content(item1.name)
     end
@@ -112,7 +112,7 @@ RSpec.describe 'Merchant Items Index page' do
       expect(page).to have_content("#{item_7.name}-#{((invoice_item_4.quantity * invoice_item_4.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
       expect(page).to have_content("#{item_6.name}-#{((invoice_item_5.quantity * invoice_item_5.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
     end
-  end 
+  end
 
 
   it 'displays top 5 best selling items' do
@@ -170,6 +170,8 @@ RSpec.describe 'Merchant Items Index page' do
       expect(page).to have_content("#{item_8.name}-#{((invoice_item_3.quantity * invoice_item_3.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
       expect(page).to have_content("#{item_7.name}-#{((invoice_item_4.quantity * invoice_item_4.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
       expect(page).to have_content("#{item_6.name}-#{((invoice_item_5.quantity * invoice_item_5.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
+
+      expect(page).to have_content()
     end
   end
 
@@ -184,5 +186,9 @@ RSpec.describe 'Merchant Items Index page' do
       expect(current_path).to eq(new_merchant_item_path(merchant1))
 
     end
+  end
+
+  xit 'Sees a date next to each of the 5 most selling items with a label' do
+
   end
 end
