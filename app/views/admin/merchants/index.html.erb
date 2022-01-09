@@ -28,6 +28,14 @@
   <% end %>
 </div>
 
+<div class="top_5_merchants">
+<h3>Top 5 Merchants</h3>
+
+<% @merchants.top_5_merchants_by_revenue.each do |merchant| %>
+  <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %></p>
+<% end %>
+</div>
+
 <div class="new_merchant">
-<%= link_to "Create Merchant", "/admin/merchants/new" %>
+  <%= link_to "Create Merchant", "/admin/merchants/new" %>
 </div>
