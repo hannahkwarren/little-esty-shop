@@ -15,6 +15,6 @@ class Invoice < ApplicationRecord
   end
 
   def self.incomplete_invoices
-    where(status: "in progress")
+    where(status: "in progress").order(created_at: :asc).distinct(:id)
   end
 end

@@ -69,9 +69,9 @@ RSpec.describe Invoice, type: :model do
 
       invoice_1 = Invoice.create!(customer_id:"#{cust_1.id}", status: "in progress")
       invoice_2 = Invoice.create!(customer_id:"#{cust_1.id}", status:"completed")
-      invoice_3 = Invoice.create!(customer_id:"#{cust_1.id}", status:"in progress")
+      invoice_3 = Invoice.create!(customer_id:"#{cust_1.id}", status:"in progress", created_at:DateTime.yesterday)
 
-      expect(Invoice.incomplete_invoices.to_a).to eq([invoice_1, invoice_3])
+      expect(Invoice.incomplete_invoices.to_a).to eq([invoice_3, invoice_1])
     end
   end
 end
