@@ -22,17 +22,13 @@
       <td><%= inv_itm.item.name%></td>
       <td><%=inv_itm.quantity %></td>
       <td><%=number_to_currency(inv_itm.unit_price.to_f / 100) %></td>
-      <td><%= form_with model: [@merchant, inv_itm], method: :patch, local: true do |f| %></td>
+      <td><%= form_with model: [@merchant, inv_itm], local: true do |f| %></td>
           <% f.label :status %>
       <td><%= f.select :status, ["pending", "packaged", "shipped"] %></td>
-      <td><%= f.submit %></td>
-
-    </tr>
+      <%= f.submit %>
       <% end %>
-
+    </tr>
   </div>
-
-    <% end %>
-
-   </table>
+  <% end %>
+  </table>
 </div>
