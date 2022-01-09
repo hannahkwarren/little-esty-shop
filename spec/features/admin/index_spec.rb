@@ -33,8 +33,6 @@ RSpec.describe 'Admin Dashboard Index page' do
 
       visit admin_index_path
 
-      # expect(page).to_not have_content(invoice_2.id)
-
       expect(page).to have_content(invoice_1.id)
       expect(page).to have_content(invoice_3.id)
     end
