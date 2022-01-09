@@ -37,8 +37,6 @@ RSpec.describe 'Admin Dashboard Index page' do
 
       expect(page).to have_content(invoice_1.id)
       expect(page).to have_content(invoice_3.id)
-      # save_and_open_page
-
     end
 
     it 'displays incomplete invoice information from oldest to newest' do
