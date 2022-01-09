@@ -171,7 +171,7 @@ RSpec.describe 'Merchant Items Index page' do
       expect(page).to have_content("#{item_7.name}-#{((invoice_item_4.quantity * invoice_item_4.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
       expect(page).to have_content("#{item_6.name}-#{((invoice_item_5.quantity * invoice_item_5.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
 
-      expect(page).to have_content()
+      expect(page).to have_content("Top day for #{item_10.name} was #{item_10.best_date[0].date.strftime("%A %B %m %Y")}")
     end
   end
 

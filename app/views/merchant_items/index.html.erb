@@ -27,6 +27,7 @@
 <% @items.top_five.each do |item| %>
     <div class = "item-<%= item.id %>">
     <li><%= link_to  item.name, merchant_item_path(@merchant, item) %>-<%= number_to_currency(item.sum.to_f / 100) %> in sales</li>
+        <p>Top day for <%= item.name %> was <%= item.best_date[0].date.strftime("%A %B %m %Y") %></p>
     </div>
 <% end %>
 </ul>

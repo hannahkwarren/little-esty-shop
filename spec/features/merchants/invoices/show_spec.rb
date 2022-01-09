@@ -102,17 +102,7 @@ RSpec.describe 'merchant invoices show page' do
       expect(page). to have_content("Total Revenue: #{(invoice.total_revenue / 100.to_f).to_s.prepend('$').insert(2, ',')}")
     end
   end
-  it 'allows merchant to update an invoice_item status' do
-    # As a merchant
-    # When I visit my merchant invoice show page
-    # I see that each invoice item status is a select field
-    # And I see that the invoice item's current status is selected
-    # When I click this select field,
-    # Then I can select a new status for the Item,
-    # And next to the select field I see a button to "Update Item Status"
-    # When I click this button
-    # I am taken back to the merchant invoice show page
-    # And I see that my Item's status has now been updated
+  xit 'allows merchant to update an invoice_item status' do
     merchant = Merchant.create!(name: 'merchant name')
     not_included_merchant = Merchant.create!(name: 'merchant name')
     customer = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
