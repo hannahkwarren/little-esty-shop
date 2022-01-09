@@ -25,7 +25,7 @@
       <td><%= form_with model: [@merchant, inv_itm], local: true do |f| %></td>
           <% f.label :status %>
       <td><%= f.select :status, ["pending", "packaged", "shipped"] %></td>
-      <%= f.submit %>
+      <td><%= f.submit %></td>
       <% end %>
     </tr>
   </div>
