@@ -11,3 +11,13 @@
     <p><%= invoice.created_at.strftime("%A, %B %d, %Y") %></p>
   <% end %>
 </div>
+
+<div class="top-customers">
+  <p>Top Customers</p>
+  <ol>
+    <% @customers.each do |customer| %>
+    <li><%= "#{customer.first_name}- #{customer.numtrans} Purchases" %></li>
+    <% end %>
+  </ol>
+
+</div>
