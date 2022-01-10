@@ -12,7 +12,7 @@ RSpec.describe 'merchant invoices show page' do
     within '.header' do
       expect(page).to have_content(invoice.id)
       expect(page).to have_content(invoice.status)
-      expect(page).to have_content(invoice.created_at.strftime("%A %B %m %Y"))
+      expect(page).to have_content(invoice.created_at.strftime("%A %B %d %Y"))
       expect(page).to have_content(customer.first_name)
       expect(page).to have_content(customer.last_name)
     end
@@ -132,9 +132,9 @@ RSpec.describe 'merchant invoices show page' do
 
     visit merchant_invoice_path(merchant, invoice)
     within ".invoice-item-#{invoice_item_1.id}" do
-      select("packaged", from: 'invoice_item_status')
+      select("shipped", from: 'invoice_item_status')
       click_button "Update Invoice item"
-      save_and_open_page
+
       invoice_item_1.reload
 
       expect(invoice_item_1.status).to eq("packaged")

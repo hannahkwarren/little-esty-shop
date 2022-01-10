@@ -115,7 +115,7 @@ RSpec.describe 'Merchant Items Index page' do
   end
 
 
-  it 'displays top 5 best selling items' do
+  it 'displays the best selling day for each top 5 items' do
     merchant = Merchant.create!(name: 'merchant name')
       item_1 = Item.create!(merchant_id: merchant.id, name: 'widget-1', description: 'widget description', unit_price: 100)
       item_2 = Item.create!(merchant_id: merchant.id, name: 'widget-2', description: 'widget description', unit_price: 200)
@@ -127,6 +127,7 @@ RSpec.describe 'Merchant Items Index page' do
       item_8 = Item.create!(merchant_id: merchant.id, name: 'widget-8', description: 'widget description', unit_price: 800)
       item_9 = Item.create!(merchant_id: merchant.id, name: 'widget-9', description: 'widget description', unit_price: 900)
       item_10 = Item.create!(merchant_id: merchant.id, name: 'widget-10', description: 'widget description', unit_price: 1000)
+
       customer_1 = Customer.create!(first_name: 'customer', last_name: 'customer_last_name')
       invoice_1 = Invoice.create!(customer_id: customer_1.id)
       invoice_item_1 = InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_10.id, quantity: 20,
@@ -147,31 +148,18 @@ RSpec.describe 'Merchant Items Index page' do
                                            unit_price: 300)
       invoice_item_10 = InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_2.id, quantity: 20,
                                            unit_price: 200)
-      invoice_item_10 = InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_1.id, quantity: 20,
-                                           unit_price: 100)
+
       Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_1.id)
       actual = Item.top_five
       Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "failed", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_1.id)
       visit merchant_items_path(merchant)
-
+      
     within '.top-five' do
-      first_item = find(".item-#{item_10.id}")
-      second_item = find(".item-#{item_9.id}")
-      third_item = find(".item-#{item_8.id}")
-      fourth_item = find(".item-#{item_7.id}")
-      fifth_item = find(".item-#{item_6.id}")
-      expect(first_item).to appear_before(second_item)
-      expect(second_item).to appear_before(third_item)
-      expect(fourth_item).to appear_before(fifth_item)
-      expect(fifth_item).to_not appear_before(first_item)
-
-      expect(page).to have_content("#{item_10.name}-#{((invoice_item_1.quantity * invoice_item_1.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
-      expect(page).to have_content("#{item_9.name}-#{((invoice_item_2.quantity * invoice_item_2.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
-      expect(page).to have_content("#{item_8.name}-#{((invoice_item_3.quantity * invoice_item_3.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
-      expect(page).to have_content("#{item_7.name}-#{((invoice_item_4.quantity * invoice_item_4.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
-      expect(page).to have_content("#{item_6.name}-#{((invoice_item_5.quantity * invoice_item_5.unit_price).to_f / 100).to_s.ljust(6, '0').prepend('$')}")
-
-      expect(page).to have_content("Top day for #{item_10.name} was #{item_10.best_date[0].date.strftime("%A %B %m %Y")}")
+      expect(page).to have_content("Top day for #{item_10.name} was #{item_10.best_date[0].date.strftime("%A %B %d %Y")}")
+      expect(page).to have_content("Top day for #{item_9.name} was #{item_9.best_date[0].date.strftime("%A %B %d %Y")}")
+      expect(page).to have_content("Top day for #{item_8.name} was #{item_8.best_date[0].date.strftime("%A %B %d %Y")}")
+      expect(page).to have_content("Top day for #{item_7.name} was #{item_7.best_date[0].date.strftime("%A %B %d %Y")}")
+      expect(page).to have_content("Top day for #{item_6.name} was #{item_6.best_date[0].date.strftime("%A %B %d %Y")}")
     end
   end
 
@@ -186,9 +174,5 @@ RSpec.describe 'Merchant Items Index page' do
       expect(current_path).to eq(new_merchant_item_path(merchant1))
 
     end
-  end
-
-  xit 'Sees a date next to each of the 5 most selling items with a label' do
-
   end
 end

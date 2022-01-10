@@ -43,7 +43,7 @@ RSpec.describe Item, type: :model do
       Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_1.id)
 
       Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "failed", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_1.id)
-      
+
       actual = Item.top_five
       expected = [item_10, item_9, item_8, item_7, item_6,]
       expect(actual).to eq(expected)
@@ -65,7 +65,7 @@ RSpec.describe Item, type: :model do
         Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-26 14:54:09", updated_at: "2012-03-26 14:54:09", invoice_id: invoice_2.id)
         Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-25 14:54:09", updated_at: "2012-03-25 14:54:09", invoice_id: invoice_3.id)
 
-        expect(item_1.best_date[0].date.strftime("%A %B %m %Y")).to eq(invoice_3.created_at.strftime("%A %B %m %Y"))
+        expect(item_1.best_date[0].date.strftime("%A %B %d %Y")).to eq(invoice_3.created_at.strftime("%A %B %d %Y"))
     end
   end
 end
