@@ -1,16 +1,17 @@
 class Merchant < ApplicationRecord
 
   has_many :items 
+
   has_many :invoice_items, :through => :items
   has_many :invoices, :through => :invoice_items 
   has_many :customers, :through => :invoices 
+  has_many :transactions, :through => :invoices
+
   enum status: %i[disabled enabled]
 
-  # def merchants_invoices 
-    #   Invoice.select("invoices.*").joins(:invoice_items, :items).where(items: {merchant_id: self.id}).order(created_at: :asc)
-
-    #   self.invoices.order(created_at: :asc)
-  # end
+  def merchants_invoices 
+    invoices.order(created_at: :asc)
+  end
 
   def items_ready_to_ship
     invoice_items.order(created_at: :asc).where(status: 1)
@@ -27,4 +28,14 @@ class Merchant < ApplicationRecord
   def self.disabled_merchants
     where(status: 0)
   end
+
+  def self.top_5_merchants_by_revenue
+    select('merchants.id, merchants.name, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+    .joins(:invoice_items, :transactions)
+    .where(transactions: {result: "success"})
+    .group('merchants.id')
+    .order('total_revenue desc')
+    .limit(5)
+  end
+
 end
