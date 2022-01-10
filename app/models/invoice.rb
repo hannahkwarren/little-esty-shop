@@ -1,13 +1,20 @@
 class Invoice < ApplicationRecord
   belongs_to :customer
-  enum status: ["in progress", "completed", "cancelled"]
+  has_many :transactions
   has_many :invoice_items
   has_many :items, through: :invoice_items
 
+  enum status: ["in progress", "completed", "cancelled"]
+
   def self.merchants_invoices(merchant)
-
-    joins(:invoice_items, :items).where(items: {merchant_id: merchant.id})
-
+    joins(:invoice_items, :items).where(items: { merchant_id: merchant.id }).distinct(:invoice_id)
   end
 
+  def total_revenue
+    invoice_items.sum("unit_price * quantity")
+  end
+
+  def self.incomplete_invoices
+    where(status: "in progress").order(created_at: :asc).distinct(:id)
+  end
 end
