@@ -33,10 +33,21 @@ RSpec.describe 'Admin Dashboard Index page' do
 
       visit admin_index_path
 
-      expect(page).to_not have_content(invoice_2.id)
-
       expect(page).to have_content(invoice_1.id)
       expect(page).to have_content(invoice_3.id)
+    end
+
+    it 'displays incomplete invoice information from oldest to newest' do
+      cust_1 = Customer.create!(first_name:"Hannah", last_name:"Warner")
+
+      invoice_1 = Invoice.create!(customer_id:"#{cust_1.id}", status:0)
+      invoice_2 = Invoice.create!(customer_id:"#{cust_1.id}", status:0)
+      invoice_3 = Invoice.create!(customer_id:"#{cust_1.id}", status:0, created_at:DateTime.yesterday)
+      visit admin_index_path
+      expect(page).to have_content(invoice_1.created_at.strftime("%A, %B %d, %Y"))
+      expect(page).to have_content(invoice_2.created_at.strftime("%A, %B %d, %Y"))
+      expect(page).to have_content(invoice_3.created_at.strftime("%A, %B %d, %Y"))
+      expect(invoice_3.created_at.strftime("%A, %B %d, %Y")).to appear_before(invoice_1.created_at.strftime("%A, %B %d, %Y"))
     end
 
     it "shows Incomplete Invoice Ids as links to that invoices admin show page" do

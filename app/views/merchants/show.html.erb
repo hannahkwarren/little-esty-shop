@@ -6,7 +6,7 @@
 <h3><div class="items-ready-to-ship">Items Ready To Ship</h3>
   <% @merchant.items_ready_to_ship.each do |invoice_item| %>
     <p><%= invoice_item.item.name %></p>
-      <p>Invoice No. <%= invoice_item.invoice.id %> Created: <%= invoice_item.item.created_at.strftime("%A %B %m %Y") %></p>
+      <p>Invoice No. <%= invoice_item.invoice.id %> Created: <%= invoice_item.item.created_at.strftime("%A %B %d %Y") %></p>
     <% end %>
 </div>
 
@@ -14,5 +14,4 @@
   <% @merchant.merchants_favorite_customers.each do |customer| %>
     <%= customer.first_name %> <%= customer.last_name %> | Successful Transactions: <%= customer.transactions.count %>
     <% end %>
-</div> 
-
+</div>

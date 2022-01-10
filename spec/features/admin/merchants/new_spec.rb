@@ -17,5 +17,4 @@ RSpec.describe "Create Merchant form page", type: :feature do
     
   end
 
-
 end
