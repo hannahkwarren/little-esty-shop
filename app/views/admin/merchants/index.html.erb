@@ -32,7 +32,7 @@
 <h3>Top 5 Merchants</h3>
 
 <% @merchants.top_5_merchants_by_revenue.each do |merchant| %>
-  <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %></p>
+  <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Total Revenue: <%= number_to_currency(merchant.total_revenue / 100.to_f) %></p>
 <% end %>
 </div>
 

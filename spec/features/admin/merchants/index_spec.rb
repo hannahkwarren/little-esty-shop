@@ -126,11 +126,11 @@ RSpec.describe "Admin Merchants Index Page", type: :feature do
     visit admin_merchants_path
 
     within ".top_5_merchants" do
-      expect(page).to have_content(merch_6.name)
-      expect(page).to have_content(merch_5.name)
-      expect(page).to have_content(merch_4.name)
-      expect(page).to have_content(merch_3.name)
-      expect(page).to have_content(merch_2.name)
+      expect(page).to have_content("#{merch_6.name} | Total Revenue: $36.00")
+      expect(page).to have_content("#{merch_5.name} | Total Revenue: $30.00")
+      expect(page).to have_content("#{merch_4.name} | Total Revenue: $24.00")
+      expect(page).to have_content("#{merch_3.name} | Total Revenue: $18.00")
+      expect(page).to have_content("#{merch_2.name} | Total Revenue: $12.00")
       
       expect("#{merch_6.name}").to appear_before("#{merch_5.name}")
       expect("#{merch_5.name}").to appear_before("#{merch_4.name}")

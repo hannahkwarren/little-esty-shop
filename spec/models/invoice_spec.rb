@@ -8,8 +8,6 @@ RSpec.describe Invoice, type: :model do
     it { should have_many(:items).through(:invoice_items) }
   end
 
-  
-
   describe '#total_revenue' do
     it 'returns total revenue for an invoice' do
       merchant = Merchant.create!(name: 'merchant name')
