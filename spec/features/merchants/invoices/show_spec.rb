@@ -12,7 +12,7 @@ RSpec.describe 'merchant invoices show page' do
     within '.header' do
       expect(page).to have_content(invoice.id)
       expect(page).to have_content(invoice.status)
-      expect(page).to have_content(invoice.created_at.strftime("%A %B %m %Y"))
+      expect(page).to have_content(invoice.created_at.strftime("%A %B %d %Y"))
       expect(page).to have_content(customer.first_name)
       expect(page).to have_content(customer.last_name)
     end
@@ -100,6 +100,44 @@ RSpec.describe 'merchant invoices show page' do
 
     within '.revenue' do
       expect(page). to have_content("Total Revenue: #{(invoice.total_revenue / 100.to_f).to_s.prepend('$').insert(2, ',')}")
+    end
+  end
+  xit 'allows merchant to update an invoice_item status' do
+    merchant = Merchant.create!(name: 'merchant name')
+    not_included_merchant = Merchant.create!(name: 'merchant name')
+    customer = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
+    invoice = Invoice.create!(customer_id: customer.id, status: 'completed')
+    invoice_2 = Invoice.create!(customer_id: customer.id, status: 'completed')
+    item_1 = Item.create!(merchant_id: merchant.id, name: 'widget-1', description: 'widget description',
+                          unit_price: 13635)
+    item_2 = Item.create!(merchant_id: merchant.id, name: 'widget-2', description: 'widget description',
+                          unit_price: 23324)
+    item_3 = Item.create!(merchant_id: merchant.id, name: 'widget-3', description: 'widget description',
+                          unit_price: 34873)
+    item_4 = Item.create!(merchant_id: merchant.id, name: 'widget-4', description: 'widget description',
+                          unit_price: 2196)
+    item_5 = Item.create!(merchant_id: not_included_merchant.id, name: 'widget-20', description: 'widget description',
+                          unit_price: 79140)
+    invoice_item_1 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_1.id, quantity: 7,
+                                         unit_price: 13635)
+    invoice_item_2 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_2.id, quantity: 3,
+                                         unit_price: 23324)
+    invoice_item_3 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_3.id, quantity: 2,
+                                         unit_price: 34873)
+    invoice_item_4 = InvoiceItem.create!(invoice_id: invoice.id, item_id: item_4.id, quantity: 2,
+                                         unit_price: 2196)
+
+    invoice_item_5 = InvoiceItem.create!(invoice_id: invoice_2.id, item_id: item_5.id, quantity: 1,
+                                         unit_price: 79140)
+
+    visit merchant_invoice_path(merchant, invoice)
+    within ".invoice-item-#{invoice_item_1.id}" do
+      select("shipped", from: 'invoice_item_status')
+      click_button "Update Invoice item"
+
+      invoice_item_1.reload
+
+      expect(invoice_item_1.status).to eq("packaged")
     end
   end
 end
