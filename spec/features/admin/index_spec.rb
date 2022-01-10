@@ -54,6 +54,9 @@ RSpec.describe 'Admin Dashboard Index page' do
     end
 
     it 'sees the names of the top 5 customers who have conducted the largest number of successful transactions' do
+
+      merchant_1 = Merchant.create!(name: "Shop Here")
+
       customer1 = Customer.create!(first_name:"first name 1", last_name:"last name 1")
       customer2 = Customer.create!(first_name:"first name 2", last_name:"last name 2")
       customer3 = Customer.create!(first_name:"first name 3", last_name:"last name 3")
@@ -65,31 +68,54 @@ RSpec.describe 'Admin Dashboard Index page' do
       customer9 = Customer.create!(first_name:"first name 9", last_name:"last name 9")
       customer10 = Customer.create!(first_name:"first name 10", last_name:"last name 10")
 
-      invoice_1 = Invoice.create!(customer_id:"#{customer1.id}", status:0)
-      invoice_2 = Invoice.create!(customer_id:"#{customer1.id}", status:1)
-      invoice_3 = Invoice.create!(customer_id:"#{customer1.id}", status:0)
+      invoice_1 = Invoice.create!(customer_id: customer1.id, status:0)
+      invoice_2 = Invoice.create!(customer_id: customer1.id, status:1)
+      invoice_3 = Invoice.create!(customer_id: customer1.id, status:0)
 
-      invoice_4 = Invoice.create!(customer_id:"#{customer2.id}", status:0)
-      invoice_5 = Invoice.create!(customer_id:"#{customer2.id}", status:1)
-      invoice_6 = Invoice.create!(customer_id:"#{customer2.id}", status:0)
+      invoice_4 = Invoice.create!(customer_id: customer2.id, status:0)
+      invoice_5 = Invoice.create!(customer_id: customer2.id, status:1)
+      invoice_6 = Invoice.create!(customer_id: customer2.id, status:0)
 
-      invoice_7 = Invoice.create!(customer_id:"#{customer3.id}", status:0)
-      invoice_8 = Invoice.create!(customer_id:"#{customer3.id}", status:1)
-      invoice_9 = Invoice.create!(customer_id:"#{customer3.id}", status:0)
+      invoice_7 = Invoice.create!(customer_id: customer3.id, status:0)
+      invoice_8 = Invoice.create!(customer_id: customer3.id, status:1)
+      invoice_9 = Invoice.create!(customer_id: customer3.id, status:0)
 
-      invoice_10 = Invoice.create!(customer_id:"#{customer4.id}", status:0)
-      invoice_11 = Invoice.create!(customer_id:"#{customer4.id}", status:1)
+      invoice_10 = Invoice.create!(customer_id: customer4.id, status:0)
+      invoice_11 = Invoice.create!(customer_id: customer4.id, status:1)
 
-      invoice_12 = Invoice.create!(customer_id:"#{customer5.id}", status:0)
-      invoice_13 = Invoice.create!(customer_id:"#{customer5.id}", status:0)
+      invoice_12 = Invoice.create!(customer_id: customer5.id, status:0)
+      invoice_13 = Invoice.create!(customer_id: customer5.id, status:0)
 
-      invoice_14 = Invoice.create!(customer_id:"#{customer6.id}", status:1)
-      invoice_15 = Invoice.create!(customer_id:"#{customer7.id}", status:0)
-      invoice_16 = Invoice.create!(customer_id:"#{customer8.id}", status:0)
-      invoice_17 = Invoice.create!(customer_id:"#{customer9.id}", status:1)
-      invoice_18 = Invoice.create!(customer_id:"#{customer10.id}", status:0)
+      invoice_14 = Invoice.create!(customer_id: customer6.id, status:1)
+      invoice_15 = Invoice.create!(customer_id: customer7.id, status:0)
+      invoice_16 = Invoice.create!(customer_id: customer8.id, status:0)
+      invoice_17 = Invoice.create!(customer_id: customer9.id, status:1)
+      invoice_18 = Invoice.create!(customer_id: customer10.id, status:0)
+
+      item_1 = Item.create!(name:"jumprope", description:"Pink and sparkly.", unit_price:600, merchant_id: merchant_1.id)
+
+      InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_2.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_3.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_4.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_5.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_6.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_7.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_8.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_9.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_10.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_11.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_12.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_13.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_14.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_15.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_16.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_17.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+      InvoiceItem.create!(invoice_id: invoice_18.id, item_id: item_1.id, status: 1, quantity:1, unit_price:600)
+
 
       transaction_1 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_1.id)
+      transaction_19 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "failed", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_1.id)
       transaction_2 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_2.id)
       transaction_3 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_3.id)
       transaction_4 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_4.id)
@@ -99,6 +125,7 @@ RSpec.describe 'Admin Dashboard Index page' do
       transaction_8 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_8.id)
       transaction_9 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_9.id)
       transaction_10 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_10.id)
+      transaction_20 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "failed", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_10.id)
       transaction_11 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_11.id)
       transaction_12 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_12.id)
       transaction_13 = Transaction.create!(credit_card_number: "4654405418249632", credit_card_expiration_date: nil, result: "success", created_at: "2012-03-27 14:54:09", updated_at: "2012-03-27 14:54:09", invoice_id: invoice_13.id)
@@ -110,12 +137,14 @@ RSpec.describe 'Admin Dashboard Index page' do
 
       visit admin_index_path
 
-      expect(page).to have_content("Top Customers")
-      expect(page).to have_content(customer1.first_name)
-      expect(page).to have_content(customer2.first_name)
-      expect(page).to have_content(customer3.first_name)
-      expect(page).to have_content(customer4.first_name)
-      expect(page).to have_content(customer5.first_name)
+      within ".top-customers" do
+        expect(page).to have_content("Top Customers")
+        expect(page).to have_content("#{customer1.first_name}- #{Customer.top_five_customers[0].numtrans} Purchases")
+        expect(page).to have_content("#{customer2.first_name}- #{Customer.top_five_customers[1].numtrans} Purchases")
+        expect(page).to have_content("#{customer3.first_name}- #{Customer.top_five_customers[2].numtrans} Purchases")
+        expect(page).to have_content("#{customer4.first_name}- #{Customer.top_five_customers[3].numtrans} Purchases")
+        expect(page).to have_content("#{customer5.first_name}- #{Customer.top_five_customers[4].numtrans} Purchases")
+      end
     end
   end
 end

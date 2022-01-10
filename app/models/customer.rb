@@ -10,4 +10,10 @@ class Customer < ApplicationRecord
     select("customers.*, count(customers.id) as count").joins(:invoices, :transactions).joins(:invoice_items, :items).where(transactions: {result: "success"}).group("customers.id").limit(5).order("count")
 
   end
+
+  def self.top_five_customers
+    select("customers.*, count(transactions.id) as numtrans").joins(:transactions).group(:id).where(transactions: {result: "success"}).order(numtrans: :desc).limit(5)
+    # customers.distinct.select("customers.*, count(transactions.id) as numtrans").joins(:transactions).where(transactions: {result: "success"}).order(numtrans: :desc).group(:id).limit(5)
+  end
+
 end
