@@ -6,8 +6,8 @@
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %></p>
 
     <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
-      <%= f.hidden_field :status, value: "disabled" %> 
-      <%= f.hidden_field :redirect_to, value: "index" %> 
+      <%= f.hidden_field :status, value: "disabled" %>
+      <%= f.hidden_field :redirect_to, value: "index" %>
       <%= f.submit "Disable #{merchant.name}", class: "btn" %>
     <% end %></p>
 
@@ -18,9 +18,9 @@
 <h3>Disabled Merchants</h3>
 <% @merchants.disabled_merchants.each do |merchant| %>
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %> </p>
-  
+
     <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
-      <%= f.hidden_field :status, value: "enabled" %> 
+      <%= f.hidden_field :status, value: "enabled" %>
       <%= f.hidden_field :redirect_to, value: "index" %>
       <%= f.submit "Enable #{merchant.name}", class: "btn" %>
     <% end %></p>
@@ -33,6 +33,7 @@
 
 <% @merchants.top_5_merchants_by_revenue.each do |merchant| %>
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Total Revenue: <%= number_to_currency(merchant.total_revenue / 100.to_f) %></p>
+  <p> <%= "Top day for #{merchant.name} was #{merchant.best_day.strftime("%A %B %d %Y")}" %> </p>
 <% end %>
 </div>
 
