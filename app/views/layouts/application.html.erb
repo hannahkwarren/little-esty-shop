@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LittleEtsyShop</title>
+    <title>Little Esty Shop</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,9 @@
   </head>
 
   <body>
+    <%@github = GithubService.new  %>
+    <h3>Github Repository Name: <%= @github.repo_name %></h3>
+    <h4>User Names: <%= @github.user_names %></h4>
     <% flash.each do |type, msg| %>
       <div class="flash">
         <%= msg %>
@@ -17,4 +20,5 @@
     <% end %>
     <%= yield %>
   </body>
+
 </html>
