@@ -201,7 +201,6 @@ RSpec.describe "Admin Merchants Index Page", type: :feature do
       expect(page).to have_content("Top day for #{merch_3.name} was #{invoice_3.created_at.strftime("%A %B %d %Y")}")
       expect(page).to have_content("Top day for #{merch_4.name} was #{invoice_4.created_at.strftime("%A %B %d %Y")}")
       expect(page).to have_content("Top day for #{merch_5.name} was #{invoice_5.created_at.strftime("%A %B %d %Y")}")
-      save_and_open_page
     end
 
   end
