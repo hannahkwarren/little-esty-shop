@@ -7,4 +7,11 @@ RSpec.describe GithubService do
     expected = "little esty shop"
     expect(actual).to eq(expected)
   end
+  describe '#user_names' do
+    it 'returns the github usernames for the repo' do
+      actual = github_api.user_names
+      expected = "Eldridge-Turambi Malllll12 dkulback hannahkwarren"
+      expect(actual).to eq(expected)
+    end
+  end
 end
