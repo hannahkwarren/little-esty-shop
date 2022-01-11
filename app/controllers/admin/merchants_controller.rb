@@ -5,15 +5,15 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find(admin_merchant_params[:id])
+    @merchant = Merchant.find(merchant_params[:id])
   end
 
   def new 
-    merchant = Merchant.new
+    @merchant = Merchant.new
   end
 
   def create 
-    merchant = Merchant.new(admin_merchant_params)
+    merchant = Merchant.new(merchant_params)
 
     if merchant.save
       redirect_to "/admin/merchants"
@@ -24,30 +24,35 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def edit
-    @merchant = Merchant.find(admin_merchant_params[:id])
+    @merchant = Merchant.find(params[:id])
   end
 
   def update
     merchant = Merchant.find(params[:id])
-
-    if merchant.update(admin_merchant_params)
+    
+    if merchant_params.present?
+      merchant.update(merchant_params)
       flash[:success] = merchant.name + ' was successfully updated.'
 
-      if(params[:redirect_to]) == "index"
-        redirect_to admin_merchants_path
-      else
-        redirect_to admin_merchant_path(params[:id])
-      end
-
+      redirect_to admin_merchant_path
     else
       flash[:alert] = "Error: #{error_message(merchant.errors)}"
-    end 
+    end
+      
+      # if(params[:redirect_to]) == "index"
+      #   redirect_to admin_merchants_path
+      # else
+      #   redirect_to admin_merchant_path(params[:id])
+      # end
+      
+    
+    # binding.pry
   end
 
 private 
 
-  def admin_merchant_params
-    params.permit(:id, :name, :status)
+  def merchant_params
+    params.require(:merchant).permit(:name, :status)
   end
 
 end
