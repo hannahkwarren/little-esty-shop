@@ -7,8 +7,9 @@ RSpec.describe "Create Merchant form page", type: :feature do
     visit "/admin/merchants/new"
 
     fill_in :name, with: "Handmade by Hannah"
+    
     click_button "Create Merchant"
-
+    
     expect(current_path).to eq(admin_merchants_path)
     
     within(".disabled_merchants") do
