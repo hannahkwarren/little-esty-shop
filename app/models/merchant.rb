@@ -38,4 +38,15 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+  def best_day
+    invoice = invoices.joins(:transactions)
+    .select("invoices.created_at AS date, count(transactions.id) AS count_trans")
+    .where(transactions: {result: :success})
+    .group("date")
+    .order(count_trans: :desc)
+    .limit(1)
+
+    invoice[0].date
+  end
+
 end
