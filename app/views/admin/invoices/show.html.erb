@@ -19,6 +19,8 @@
   <% end %>
 </div>
 
+<%= render partial: 'form', locals: { model: [:admin, @invoice] }%>
+
 <div class="total_revenue">
   <p>Total Revenue: <%= @invoice.total_revenue %></p>
 </div>
