@@ -14,6 +14,7 @@
   padding: 10px;
 }
 
+<<<<<<< HEAD
 /* Clear floats after the columns */
 .row:after {
   content: "";
@@ -29,6 +30,13 @@
     <h3>Enabled Merchants</h3>
     <% @merchants.enabled_merchants.each do |merchant| %>
       <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %></p>
+=======
+    <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
+      <%= f.hidden_field :status, value: "disabled" %>
+      <%= f.hidden_field :redirect_to, value: "index" %>
+      <%= f.submit "Disable #{merchant.name}", class: "btn" %>
+    <% end %></p>
+>>>>>>> e62e283064a58c91aaed38aa4e66256816ae6e7b
 
         <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
           <%= f.hidden_field :status, value: "disabled" %>
@@ -36,11 +44,27 @@
           <%= f.submit "Disable #{merchant.name}", class: "btn" %>
         <% end %></p>
 
+<<<<<<< HEAD
       <% end %>
       <div class="disabled_merchants">
       <h3>Disabled Merchants</h3>
       <% @merchants.disabled_merchants.each do |merchant| %>
         <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %> </p>
+=======
+<div class="disabled_merchants">
+<h3>Disabled Merchants</h3>
+<% @merchants.disabled_merchants.each do |merchant| %>
+  <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %> </p>
+
+    <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
+      <%= f.hidden_field :status, value: "enabled" %>
+      <%= f.hidden_field :redirect_to, value: "index" %>
+      <%= f.submit "Enable #{merchant.name}", class: "btn" %>
+    <% end %></p>
+
+  <% end %>
+</div>
+>>>>>>> e62e283064a58c91aaed38aa4e66256816ae6e7b
 
           <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
             <%= f.hidden_field :status, value: "enabled" %>
@@ -48,6 +72,7 @@
             <%= f.submit "Enable #{merchant.name}", class: "btn" %>
           <% end %></p>
 
+<<<<<<< HEAD
         <% end %>
       </div>
     </div>
@@ -55,6 +80,13 @@
   <div class="column" style="background-color:#bbb;">
     <div class="top_5_merchants" style="text-align:right; margin: auto">
     <h3>Top 5 Merchants</h3>
+=======
+<% @merchants.top_5_merchants_by_revenue.each do |merchant| %>
+  <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Total Revenue: <%= number_to_currency(merchant.total_revenue / 100.to_f) %></p>
+  <p> <%= "Top day for #{merchant.name} was #{merchant.best_day.strftime("%A %B %d %Y")}" %> </p>
+<% end %>
+</div>
+>>>>>>> e62e283064a58c91aaed38aa4e66256816ae6e7b
 
     <% @merchants.top_5_merchants_by_revenue.each do |merchant| %>
       <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Total Revenue: <%= number_to_currency(merchant.total_revenue / 100.to_f) %></p>
