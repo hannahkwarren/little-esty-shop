@@ -5,7 +5,6 @@ RSpec.describe "Create Merchant form page", type: :feature do
   it "creates a new merchant with disabled status by default" do
 
     visit "/admin/merchants/new"
-    require "pry"; binding.pry
     fill_in :name, with: "Handmade by Hannah"
     click_button "Create Merchant"
 
