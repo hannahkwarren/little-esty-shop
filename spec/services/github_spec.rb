@@ -17,12 +17,11 @@ RSpec.describe GithubService do
       expect(actual).to eq(expected)
     end
   end
-
-  # describe '#user_commits' do
-  #   it 'returns github commits for each user' do
-  #     actual = github_api.user_commits
-  #     expected = "Eldridge-Turambi Malllll12 dkulback hannahkwarren"
-  #     expect(actual).to eq(expected)
-  #   end
-  # end
+  describe '#user_pr' do
+    it 'returns the number of merged PRs across all team members' do
+      actual = github_api.user_pr
+      expected = 82
+      expect(actual).to eq(expected)
+    end
+  end
 end
