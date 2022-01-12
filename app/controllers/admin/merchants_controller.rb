@@ -20,7 +20,6 @@ class Admin::MerchantsController < ApplicationController
       redirect_to "/admin/merchants"
     else
       redirect_to "/admin/merchants/new"
-      flash[:alert] = "Error: #{error_message(merchant.errors)}"
     end
   end
 
