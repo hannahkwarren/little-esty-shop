@@ -24,7 +24,7 @@ RSpec.configure do |config|
 RSpec.configure do |config|
   config.before(:each) do
     json_response1 = File.read('spec/fixtures/repo_name.json')
-    stub_request(:get, "https://api.github.com/repos/hschmid516/little-esty-shop").
+    stub_request(:get, "https://api.github.com/repos/hannahkwarren/little-esty-shop").
       to_return(status: 200, body: json_response1)
 
     json_response2 = File.read('spec/fixtures/pull_requests.json')
