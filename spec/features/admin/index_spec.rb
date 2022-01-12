@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Dashboard Index page' do
+  
   it 'shows admin header' do
     visit admin_index_path
 
