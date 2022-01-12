@@ -44,12 +44,8 @@ class Admin::MerchantsController < ApplicationController
     end
   end
 
-private
-  def set_merchant
-    merchant = Merchant.find(params[:id])
-  end
+  private
   def admin_merchant_params
     params.permit(:id, :name, :status)
   end
-
 end
