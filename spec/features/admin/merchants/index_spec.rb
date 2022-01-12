@@ -63,16 +63,16 @@ RSpec.describe "Admin Merchants Index Page", type: :feature do
     visit "/admin/merchants"
 
     within ".enabled_merchants" do
-      expect(page).to have_selector(:link_or_button, 'Disable Easily Amused Studio')
+      expect(page).to have_selector(:link_or_button, "Disable #{merch_1.name}")
     end
 
     within ".disabled_merchants" do
-      expect(page).to have_selector(:link_or_button, 'Enable Retro Furniture')
-      expect(page).to have_selector(:link_or_button, 'Enable Vintage Accessories')
+      expect(page).to have_selector(:link_or_button, "Enable #{merch_2.name}")
+      expect(page).to have_selector(:link_or_button, "Enable #{merch_3.name}")
     end
 
-    click_button "Enable #{merch_3.name}"
-
+    find("#enable-#{merch_3.id}").click
+    # save_and_open_page
     within ".enabled_merchants" do
       expect(page).to have_selector(:link_or_button, "Disable #{merch_1.name}")
       expect(page).to have_selector(:link_or_button, "Disable #{merch_3.name}")
