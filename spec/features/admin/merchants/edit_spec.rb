@@ -15,7 +15,6 @@ RSpec.describe "Admin Merchant Edit Page", type: :feature do
     choose('merchant_status_enabled')
     click_button "Submit"
     
-    save_and_open_page
     expect(current_path).to eq("/admin/merchants/#{merch_3.id}")
     
     expect(page).to have_content("Vintage Shoppe")

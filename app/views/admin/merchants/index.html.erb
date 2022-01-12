@@ -5,11 +5,7 @@
 <% @merchants.enabled_merchants.each do |merchant| %>
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %></p>
 
-    <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
-      <%= f.hidden_field :status, value: "disabled" %>
-      <%= f.hidden_field :redirect_to, value: "index" %>
-      <%= f.submit "Disable #{merchant.name}", class: "btn" %>
-    <% end %></p>
+    <%= button_to "Disable #{merchant.name}", admin_merchant_path(merchant), params: {status: :disabled}, id: "disable-#{merchant.id}", method: :patch %>
 
   <% end %>
 </div>
@@ -19,11 +15,7 @@
 <% @merchants.disabled_merchants.each do |merchant| %>
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %> </p>
 
-    <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
-      <%= f.hidden_field :status, value: "enabled" %>
-      <%= f.hidden_field :redirect_to, value: "index" %>
-      <%= f.submit "Enable #{merchant.name}", class: "btn" %>
-    <% end %></p>
+  <%= button_to "Enable #{merchant.name}", admin_merchant_path(merchant), params: {status: :enabled}, id: "enable-#{merchant.id}", method: :patch %>
 
   <% end %>
 </div>

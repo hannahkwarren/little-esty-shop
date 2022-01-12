@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LittleEtsyShop</title>
+    <title>Little Esty Shop</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%@github = GithubService.new  %>
+    <h3>Github Repository Name: <%= @github.repo_name %></h3>
+    <h4>Total Pull Requests: <%= @github.user_pr %></h4>
+    <h4>User Names:</h4>
+    <% @github.user_names_and_commits.each do |key, value| %>
+                      <p><%= key %>: <%= value %></p>
+                    <% end  %>
     <% flash.each do |type, msg| %>
       <div class="flash">
         <%= msg %>
@@ -17,4 +23,5 @@
     <% end %>
     <%= yield %>
   </body>
+
 </html>
