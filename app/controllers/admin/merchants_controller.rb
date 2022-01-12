@@ -8,11 +8,11 @@ class Admin::MerchantsController < ApplicationController
     @merchant = Merchant.find(admin_merchant_params[:id])
   end
 
-  def new 
+  def new
     merchant = Merchant.new
   end
 
-  def create 
+  def create
     merchant = Merchant.new(admin_merchant_params)
 
     if merchant.save
@@ -41,13 +41,11 @@ class Admin::MerchantsController < ApplicationController
 
     else
       flash[:alert] = "Error: #{error_message(merchant.errors)}"
-    end 
+    end
   end
 
-private 
-
+  private
   def admin_merchant_params
     params.permit(:id, :name, :status)
   end
-
 end

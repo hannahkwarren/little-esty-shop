@@ -1,0 +1,4 @@
+<%=form_with model: [:admin, @invoice], local: true do |f|%>
+<p><%=f.label :status %>: <%= f.select(:status, ["in progress", "completed", "cancelled"])%></p>
+<p><%= f.submit "Update Status" %></p>
+<% end %>
