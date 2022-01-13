@@ -1,3 +1,4 @@
+
 <h1> Admin: All Merchants </h1>
 
 <div class="enabled_merchants">
@@ -6,7 +7,6 @@
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %></p>
 
     <%= button_to "Disable #{merchant.name}", admin_merchant_path(merchant), params: {status: :disabled}, id: "disable-#{merchant.id}", method: :patch %>
-
   <% end %>
 </div>
 
@@ -16,7 +16,6 @@
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %> </p>
 
   <%= button_to "Enable #{merchant.name}", admin_merchant_path(merchant), params: {status: :enabled}, id: "enable-#{merchant.id}", method: :patch %>
-
   <% end %>
 </div>
 
