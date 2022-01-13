@@ -74,7 +74,6 @@ GEM
     docile (1.4.0)
     erubi (1.10.0)
     execjs (2.8.1)
-    faraday-net_http (2.0.1)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -246,7 +245,6 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   capybara
   coffee-rails (~> 4.2)
-  faraday-net_http
   httparty
   jbuilder (~> 2.5)
   launchy
