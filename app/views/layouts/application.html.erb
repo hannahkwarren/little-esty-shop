@@ -9,12 +9,18 @@
   </head>
 
   <body>
-    <% flash.each do |type, msg| %>
-      <div class="flash">
-        <%= msg %>
-      </div>
-    <% end %>
-    <%= yield %>
-  </body>
+      <h3>Github Repository Name: <%= @github.repo_name %></h3>
+      <h4>Total Pull Requests: <%= @github.user_pr %></h4>
+      <h4>User Names:</h4>
+      <% @github.user_names_and_commits.each do |key, value| %>
+                        <p><%= key %>: <%= value %></p>
+                      <% end  %>
+      <% flash.each do |type, msg| %>
+        <div class="flash">
+          <%= msg %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </body>
 
 </html>
