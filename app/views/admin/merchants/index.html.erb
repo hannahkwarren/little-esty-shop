@@ -1,19 +1,14 @@
 
+<h1> Admin: All Merchants </h1>
 
-    <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
-      <%= f.hidden_field :status, value: "disabled" %>
-      <%= f.hidden_field :redirect_to, value: "index" %>
-      <%= f.submit "Disable #{merchant.name}", class: "btn" %>
-    <% end %></p>
-=======
+<div class="enabled_merchants">
+<h3>Enabled Merchants</h3>
+<% @merchants.enabled_merchants.each do |merchant| %>
+  <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %></p>
+
     <%= button_to "Disable #{merchant.name}", admin_merchant_path(merchant), params: {status: :disabled}, id: "disable-#{merchant.id}", method: :patch %>
->>>>>>> 73cc43dd2b56f85e842270f4d552002b44d9fcbc
-
-        <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
-          <%= f.hidden_field :status, value: "disabled" %>
-          <%= f.hidden_field :redirect_to, value: "index" %>
-          <%= f.submit "Disable #{merchant.name}", class: "btn" %>
-        <% end %></p>
+  <% end %>
+</div>
 
 <div class="disabled_merchants">
 <h3>Disabled Merchants</h3>
@@ -21,15 +16,11 @@
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Status: <%= merchant.status %> </p>
 
   <%= button_to "Enable #{merchant.name}", admin_merchant_path(merchant), params: {status: :enabled}, id: "enable-#{merchant.id}", method: :patch %>
-
   <% end %>
 </div>
 
-          <p><%= form_with url:"/admin/merchants/#{merchant.id}", method: :put, local: true do |f| %>
-            <%= f.hidden_field :status, value: "enabled" %>
-            <%= f.hidden_field :redirect_to, value: "index" %>
-            <%= f.submit "Enable #{merchant.name}", class: "btn" %>
-          <% end %></p>
+<div class="top_5_merchants">
+<h3>Top 5 Merchants</h3>
 
 <% @merchants.top_5_merchants_by_revenue.each do |merchant| %>
   <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Total Revenue: <%= number_to_currency(merchant.total_revenue / 100.to_f) %></p>
@@ -37,16 +28,6 @@
 <% end %>
 </div>
 
-    <% @merchants.top_5_merchants_by_revenue.each do |merchant| %>
-      <p><%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}" %> | Total Revenue: <%= number_to_currency(merchant.total_revenue / 100.to_f) %></p>
-    <% end %>
-    </div>
-
-
-  </div>
-</div>
 <div class="new_merchant">
   <%= link_to "Create Merchant", "/admin/merchants/new" %>
 </div>
-</body>
-</html>
