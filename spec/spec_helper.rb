@@ -20,33 +20,16 @@ RSpec.configure do |config|
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
 
-
-RSpec.configure do |config|
   config.before(:each) do
-    json_response1 = File.read('spec/fixtures/repo_name.json')
-    stub_request(:get, "https://api.github.com/repos/hannahkwarren/little-esty-shop").
-      to_return(status: 200, body: json_response1)
+     json_response1 = File.read('spec/fixtures/repo.json')
+     stub_request(:get, "https://api.github.com/repos/hannahkwarren/little-esty-shop").to_return(status: 200, body: json_response1)
 
-    json_response2 = File.read('spec/fixtures/pull_requests.json')
-    stub_request(:get, "https://api.github.com/search/issues?q=repo:hannahkwarren/little-esty-shop%20is:pull-request").
-      to_return(status: 200, body: json_response2)
+     json_response2 = File.read('spec/fixtures/pull_request.json')
+     stub_request(:get, "https://api.github.com/repos/hannahkwarren/little-esty-shop/pulls?state=closed").to_return(status: 200, body: json_response2)
 
-    json_response3 = File.read('spec/fixtures/contributors.json')
-    stub_request(:get, 'https://api.github.com/repos/hannahkwarren/little-esty-shop/stats/contributors').
-      to_return(status: 200, body: json_response3)
-
-  end
-
-  config.before :each, type: :feature do |test|
-    if !test.metadata[:logged_out]
-      User.create!(username: 'user', password: 'password', role: 0)
-      visit "/"
-      click_link "Log In"
-      fill_in(:name, with: 'user')
-      fill_in(:password, with: 'password')
-      click_button('Log In')
-    end
-  end
+      json_response3 = File.read('spec/fixtures/contributors.json')
+     stub_request(:get, "https://api.github.com/repos/hannahkwarren/little-esty-shop/contributors").to_return(status: 200, body: json_response3)
+   end
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
