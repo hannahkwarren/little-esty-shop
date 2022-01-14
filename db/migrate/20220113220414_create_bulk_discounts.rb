@@ -4,7 +4,7 @@ class CreateBulkDiscounts < ActiveRecord::Migration[5.2]
       t.references :merchant, foreign_key: true
       t.string :title
       t.integer :qty_threshold
-      t.decimal :percentage
+      t.integer :percentage
 
       t.timestamps
     end

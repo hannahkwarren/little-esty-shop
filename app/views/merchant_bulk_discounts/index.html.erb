@@ -1,0 +1,12 @@
+<div class="bulk-discount">
+  <ul>
+    <% @bulk_discounts.each do |discount| %>
+    <div class="discount-<%= discount.id %>">
+      <h5>DISCOUNT</h5>
+      <li>Discount: <%= discount.title %></li>
+      <li>Percentage off: <%= discount.percentage.to_s.concat('%') %></li>
+      <li>Qualifying quantity: <%= discount.qty_threshold %></li>
+    </div>
+    <% end %>
+  </ul>
+</div>
