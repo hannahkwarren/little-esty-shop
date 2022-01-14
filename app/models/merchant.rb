@@ -7,6 +7,8 @@ class Merchant < ApplicationRecord
   has_many :customers, :through => :invoices
   has_many :transactions, :through => :invoices
 
+  has_many :bulk_discounts
+
   enum status: %i[disabled enabled]
 
   def merchants_invoices
