@@ -16,4 +16,6 @@ Rails.application.routes.draw do
     resources :merchants
     resources :invoices
   end
+
+  get "/bulk_discounts", to: "bulk_discounts#index"
 end
