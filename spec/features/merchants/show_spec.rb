@@ -1,7 +1,6 @@
 require 'rails_helper'
-# require 'date'
 
-RSpec.describe "Merchant Dashboard Show Page" do
+RSpec.describe "Merchant Dashboard(Show Page)", type: :feature do
 
   before(:each) do
     @merch_1 = Merchant.create!(name: "Shop Here")
@@ -27,11 +26,14 @@ RSpec.describe "Merchant Dashboard Show Page" do
     @invoice_item_4 = InvoiceItem.create!(invoice_id:"#{@invoice_4.id}", item_id:"#{@item_1.id}", status: 2, quantity:1, unit_price:600)
     @invoice_item_5 = InvoiceItem.create!(invoice_id:"#{@invoice_5.id}", item_id:"#{@item_1.id}", status: 2, quantity:1, unit_price:600)
 
-    @transaction_1 = Transaction.create(invoice_id:"#{@invoice_1.id}", result: "success")
-    @transaction_2 = Transaction.create(invoice_id:"#{@invoice_2.id}", result: "success")
-    @transaction_3 = Transaction.create(invoice_id:"#{@invoice_3.id}", result: "success")
-    @transaction_4 = Transaction.create(invoice_id:"#{@invoice_4.id}", result: "success")
-    @transaction_5 = Transaction.create(invoice_id:"#{@invoice_5.id}", result: "success")
+    @transaction_1 = Transaction.create!(invoice_id:"#{@invoice_1.id}", result: "success")
+    @transaction_2 = Transaction.create!(invoice_id:"#{@invoice_2.id}", result: "success")
+    @transaction_3 = Transaction.create!(invoice_id:"#{@invoice_3.id}", result: "success")
+    @transaction_4 = Transaction.create!(invoice_id:"#{@invoice_4.id}", result: "success")
+    @transaction_5 = Transaction.create!(invoice_id:"#{@invoice_5.id}", result: "success")
+
+    @bulk_discount_1 = BulkDiscount.create!(merchant_id: @merch_1.id, percentage: 15, quantity:20)
+    @bulk_discount_2 = BulkDiscount.create!(merchant_id: @merch_1.id, percentage: 10, quantity:10)
   end
 
   it 'shows merchant name' do
@@ -64,12 +66,6 @@ RSpec.describe "Merchant Dashboard Show Page" do
 
   it "has 'Items Ready to Ship' with items, date invoice created, date" do
 
-    # When I visit my merchant dashboard
-    # In the section for "Items Ready to Ship",
-    # Next to each Item name I see the date that the invoice was created
-    # And I see the date formatted like "Monday, July 18, 2019"
-    # And I see that the list is ordered from oldest to newest
-
     visit "/merchants/#{@merch_1.id}/dashboard"
 
     within(".items-ready-to-ship") do
@@ -98,5 +94,27 @@ RSpec.describe "Merchant Dashboard Show Page" do
     expect(page).to have_content("DJ Tanner | Successful Transactions: 1")
   end
 
+  it "has a link to view all a merchant's discounts; when clicked, taken to bulk discounts index page with all bulk discounts" do 
+
+    visit "/merchants/#{@merch_1.id}/dashboard"
+
+    within ".bulk-discount-#{@bulk_discount_1.id}" do
+      expect(page).to have_content("Bulk Discount, ID: #{@bulk_discount_1.id}")
+      expect(page).to have_content("Percentage: #{@bulk_discount_1.percentage}")
+      expect(page).to have_content("Quantity: #{@bulk_discount_1.quantity}")
+    end
+
+    within ".bulk-discount-#{@bulk_discount_2.id}" do
+      expect(page).to have_content("Bulk Discount, ID: #{@bulk_discount_2.id}")
+      expect(page).to have_content("Percentage: #{@bulk_discount_2.percentage}")
+      expect(page).to have_content("Quantity: #{@bulk_discount_2.quantity}")
+    end
+
+    click_link 
+  end
+
+  xit "each discount has its respective percentage and quantity thresholds and links to its bulk discount show page" do 
+
+  end
 
 end

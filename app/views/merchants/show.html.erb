@@ -3,15 +3,30 @@
 <p><%= link_to "Items Index", "/merchants/#{@merchant.id}/items"%></p>
 <p><%= link_to "Invoices Index", "/merchants/#{@merchant.id}/invoices"%></p>
 
-<h3><div class="items-ready-to-ship">Items Ready To Ship</h3>
-  <% @merchant.items_ready_to_ship.each do |invoice_item| %>
-    <p><%= invoice_item.item.name %></p>
-      <p>Invoice No. <%= invoice_item.invoice.id %> Created: <%= invoice_item.item.created_at.strftime("%A %B %d %Y") %></p>
+<h3>Items Ready To Ship</h3>
+
+  <div class="items-ready-to-ship">
+    <% @merchant.items_ready_to_ship.each do |invoice_item| %>
+      <p><%= invoice_item.item.name %></p>
+        <p>Invoice No. <%= invoice_item.invoice.id %> Created: <%= invoice_item.item.created_at.strftime("%A %B %d %Y") %></p>
+      <% end %>
+  </div>
+
+<h3>Favorite Customers</h3>
+
+  <div class="favorite-customers">
+    <% @merchant.merchants_favorite_customers.each do |customer| %>
+      <%= customer.first_name %> <%= customer.last_name %> | Successful Transactions: <%= customer.transactions.count %>
+      <% end %>
+  </div>
+
+<h3>Merchant's Bulk Discounts</h3>
+  <% @merchant.bulk_discounts.each do |discount| %>
+    <div class="bulk-discount-<%= discount.id %>" >
+    <h4><%= link_to "Bulk Discount, ID: #{discount.id}", "/bulk_discounts/#{discount.id}" %></h4>
+    <p>Percentage: <%= discount.percentage %></p>
+    <p>Quantity: <%= discount.quantity %></p>
     <% end %>
 </div>
 
- <h3><div class="favorite-customers">Favorite Customers</h3>
-  <% @merchant.merchants_favorite_customers.each do |customer| %>
-    <%= customer.first_name %> <%= customer.last_name %> | Successful Transactions: <%= customer.transactions.count %>
-    <% end %>
-</div>
+

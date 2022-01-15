@@ -1,11 +1,13 @@
 class Merchant < ApplicationRecord
 
   has_many :items
+  has_many :bulk_discounts
 
   has_many :invoice_items, :through => :items
   has_many :invoices, :through => :invoice_items
   has_many :customers, :through => :invoices
   has_many :transactions, :through => :invoices
+
 
   enum status: %i[disabled enabled]
 
@@ -31,11 +33,11 @@ class Merchant < ApplicationRecord
 
   def self.top_5_merchants_by_revenue
     select('merchants.id, merchants.name, sum(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
-    .joins(:invoice_items, :transactions)
-    .where(transactions: {result: "success"})
-    .group('merchants.id')
-    .order('total_revenue desc')
-    .limit(5)
+      .joins(:transactions)
+      .where(transactions: { result: 'success' })
+      .group('merchants.id')
+      .order('total_revenue desc')
+      .limit(5)
   end
 
   def best_day
