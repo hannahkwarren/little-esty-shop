@@ -1,6 +1,6 @@
 <h1>Discounts</h1>
-<% @merchant.bulk_discounts.each do |discount| %>
-  <p><%=link_to discount.name, "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}" %></p>
-  <p>%<%= discount.discount %></p>
-  <p><%= discount.threshold %></p>
+<% @merchant.bulk_discounts.each do |b_discount| %>
+  <p><%=link_to b_discount.name, "/merchants/#{@merchant.id}/bulk_discounts/#{b_discount.id}" %></p>
+  <p>%<%= b_discount.float_to_percent  %></p>
+  <p><%= b_discount.threshold %></p>
 <% end %>
