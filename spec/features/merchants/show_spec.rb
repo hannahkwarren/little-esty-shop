@@ -1,4 +1,5 @@
 require 'rails_helper'
+# require 'date'
 
 RSpec.describe "Merchant Dashboard Show Page" do
 
@@ -63,6 +64,12 @@ RSpec.describe "Merchant Dashboard Show Page" do
 
   it "has 'Items Ready to Ship' with items, date invoice created, date" do
 
+    # When I visit my merchant dashboard
+    # In the section for "Items Ready to Ship",
+    # Next to each Item name I see the date that the invoice was created
+    # And I see the date formatted like "Monday, July 18, 2019"
+    # And I see that the list is ordered from oldest to newest
+
     visit "/merchants/#{@merch_1.id}/dashboard"
 
     within(".items-ready-to-ship") do
@@ -91,14 +98,5 @@ RSpec.describe "Merchant Dashboard Show Page" do
     expect(page).to have_content("DJ Tanner | Successful Transactions: 1")
   end
 
-  it "has link to bulk discounts index" do
-    visit "/merchants/#{@merch_1.id}/dashboard"
-
-    within(".bulk-discounts") do
-      expect(page).to have_link("Bulk Discounts")
-      click_link "Bulk Discounts"
-      expect(current_path).to eq("/merchants/#{@merch_1.id}/bulk_discounts/")
-    end
-  end
 
 end
