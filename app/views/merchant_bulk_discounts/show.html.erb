@@ -1,0 +1,7 @@
+<div class="bulk-discount">
+  <h1>Bulk Discount - <%= @bulk_discount.title %></h1>
+  <ul>
+    <li>Must Purchase <%= @bulk_discount.qty_threshold %> items to qualify</li>
+    <li>Percentage off: <%= @bulk_discount.percentage.to_s.concat('%') %></li>
+  </ul>
+</div>
