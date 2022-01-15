@@ -1,7 +1,7 @@
 class MerchantsController < ApplicationController
 
   def index
-    
+    @merchants = Merchant.all
   end
 
   def show
@@ -16,7 +16,7 @@ class MerchantsController < ApplicationController
   #     redirect_to admin_merchant_path(params[:id])
   #   else
   #     flash[:alert] = "Error: #{error_message(merchant.errors)}"
-  #   end 
+  #   end
   # end
 
 end
