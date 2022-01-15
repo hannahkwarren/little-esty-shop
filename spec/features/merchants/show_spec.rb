@@ -1,5 +1,4 @@
 require 'rails_helper'
-# require 'date'
 
 RSpec.describe "Merchant Dashboard Show Page" do
 
@@ -98,7 +97,7 @@ RSpec.describe "Merchant Dashboard Show Page" do
     within(".bulk-discounts") do
       expect(page).to have_link("Bulk Discounts")
       click_link "Bulk Discounts"
-      expect(current_path).to eq("/bulk_discounts/")
+      expect(current_path).to eq("/merchants/#{@merch_1.id}/bulk_discounts/")
     end
   end
 
