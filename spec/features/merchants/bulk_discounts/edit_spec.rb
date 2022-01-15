@@ -13,7 +13,7 @@ RSpec.describe 'edit page for bulk discount' do
       click_on 'Update Bulk discount'
       expect(current_path).to eq(merchant_bulk_discount_path(merchant, discount_1))
     end
-    save_and_open_page
+
     within '.bulk-discount' do
       discount_1.reload
       expect(page).to have_content("Bulk Discount - #{discount_1.title}")
