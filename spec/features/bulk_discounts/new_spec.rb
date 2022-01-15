@@ -6,15 +6,14 @@ RSpec.describe "New Bulk Discount page" do
 
     visit "/merchants/#{merch_1.id}/bulk_discounts/new"
 
-    within ".new_discount_form" do
-      fill_in "Name", with: "BOGO"
-      fill_in "Discount", with: 20
-      fill_in "Threshold", with: 10
+    fill_in "Name", with: 'Buy Bulk!'
+    fill_in "Percentage", with: 20
+    fill_in "Threshold", with: 10
 
-      save_and_open_page
-      click_button "Submit"
-      expect(current_path).to eq("/merchants/#{merch_1.id}/bulk_discounts")
-      # expect(page).to have_content("BOGO")
-    end
+    click_button "Submit"
+    expect(current_path).to eq("/merchants/#{merch_1.id}/bulk_discounts")
+    expect(page).to have_link('Buy Bulk!')
+    expect(page).to have_content('%20')
+    expect(page).to have_content(10)
   end
 end
