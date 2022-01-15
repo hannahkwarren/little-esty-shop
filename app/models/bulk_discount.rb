@@ -4,7 +4,7 @@ class BulkDiscount < ApplicationRecord
   validates :discount, presence: true
   belongs_to :merchant
 
-  def float_to_percent
-    discount * 100
-  end
+  # def float_to_percent
+  #   discount * 100
+  # end
 end
