@@ -4,3 +4,5 @@
   <p>%<%= b_discount.float_to_percent  %></p>
   <p><%= b_discount.threshold %></p>
 <% end %>
+
+<p><%= link_to "New Discount", "/merchants/#{@merchant.id}/bulk_discounts/new" %></p>
