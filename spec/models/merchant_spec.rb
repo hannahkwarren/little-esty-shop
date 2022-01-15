@@ -1,21 +1,14 @@
 require 'rails_helper'
 
-#--- use this to see a full diff output ---
-# RSpec.configure do |rspec|
-#   rspec.expect_with :rspec do |c|
-#   c.max_formatted_output_length = 1000 # n is number of lines, or nil for no truncation.
-#   end
-# end
-
 RSpec.describe Merchant, type: :model do
 
   describe "relationships" do
-    it {should have_many(:items) }
-    it {should have_many(:invoice_items).through(:items) }
-    it {should have_many(:invoices).through(:invoice_items) }
-    it {should have_many(:customers).through(:invoices) }
+    it { should have_many(:items) }
+    it { should have_many(:invoice_items).through(:items) }
+    it { should have_many(:invoices).through(:invoice_items) }
+    it { should have_many(:customers).through(:invoices) }
+    it { should have_many(:bulk_discounts) }
   end
-
 
   describe "instance methods" do
 
