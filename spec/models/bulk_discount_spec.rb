@@ -24,5 +24,4 @@ RSpec.describe BulkDiscount, type: :model do
       expect(discount_c.float_to_percent).to eq(25.0)
     end
   end
-
 end
