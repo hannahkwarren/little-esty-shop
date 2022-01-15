@@ -1,0 +1,14 @@
+<div class="edit-form">
+  <%= form_with model: [@bulk_discount.merchant, @bulk_discount], local: true do |f| %>
+    <%= f.label "title" %>
+    <%= f.text_field :title %>
+
+    <%= f.label "Item quantity to qualify for discount" %>
+    <%= f.text_field :qty_threshold %>
+
+    <%= f.label :percentage, "Percentage Off" %>
+    <%= f.text_field :percentage %>
+
+    <%= f.submit %>
+  <% end %>
+</div>

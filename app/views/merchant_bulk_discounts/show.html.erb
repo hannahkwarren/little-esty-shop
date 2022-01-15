@@ -3,5 +3,8 @@
   <ul>
     <li>Must Purchase <%= @bulk_discount.qty_threshold %> items to qualify</li>
     <li>Percentage off: <%= @bulk_discount.percentage.to_s.concat('%') %></li>
+    <p> <%= link_to "Edit Bulk Discount",
+            edit_merchant_bulk_discount_path(@bulk_discount.merchant, @bulk_discount),
+            method: :get %>  </p>
   </ul>
 </div>
