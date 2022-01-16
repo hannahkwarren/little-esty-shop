@@ -30,7 +30,6 @@ class MerchantItemsController < ApplicationController
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
-    # @item = Item.new
     @item = Item.new
   end
 
