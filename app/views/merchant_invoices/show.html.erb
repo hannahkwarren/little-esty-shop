@@ -3,30 +3,36 @@
   <p>Invoice Status <%= @invoice.status %></p>
   <p>Invoice Customer <%= @invoice.customer.first_name %>, <%= @invoice.customer.last_name %></p>
   <p>Invoice Created at: <%= @invoice.created_at.strftime("%A %B %d %Y") %></p>
-
 </div>
-<div class="revenue">
+<div class="total-revenue">
   <h3>Total Revenue: <%= number_to_currency(@invoice.total_revenue / 100.to_f) %></h3>
 </div>
+<div class="discounted-rev">
+  <h3>Discounted Total Revenue: <%= number_to_currency(@invoice.discounted_total_rev / 100.to_f) %></h3>
+</div>
 <div class = "invoice-items">
-  <table>
+  <table style = "border-spacing: 30px;">
     <tr>
       <th>Item Name</th>
       <th>Quantity</th>
       <th>Unit Price </th>
       <th>Status</th>
       <th>Submit</th>
+      <th>Discount</th>
     </tr>
-  <% @invoice_items.each do |inv_itm| %>
-    <tr class="invoice-item-<%= inv_itm.id %>">
-      <td><%= inv_itm.item.name%></td>
-      <td><%=inv_itm.quantity %></td>
-      <td><%=number_to_currency(inv_itm.unit_price.to_f / 100) %></td>
-      <%= form_with model: [@merchant, inv_itm], local: true do |f| %>
-        <td><%= f.select :status, ["pending", "packaged", "shipped"] %> <%= f.submit %></td>
-      <% end %>
-    </tr>
-  </div>
+    <% @invoice_items.each do |inv_itm| %>
+      <tr class="invoice-item-<%= inv_itm.id %>">
+        <td><%= inv_itm.item.name%></td>
+        <td><%=inv_itm.quantity %></td>
+        <td><%=number_to_currency(inv_itm.unit_price.to_f / 100) %></td>
+        <%= form_with model: [@merchant, inv_itm], local: true do |f| %>
+          <td><%= f.select :status, ["pending", "packaged", "shipped"] %> <%= f.submit %></td>
+        <% end %>
+        <% if inv_itm.discount.present?  %>
+          <td> <%= link_to "#{inv_itm.discount.title}", merchant_bulk_discount_path(@merchant, inv_itm.discount) %> </td>
+        <%end %>
+      </tr>
+    </div>
   <% end %>
-  </table>
+</table>
 </div>
