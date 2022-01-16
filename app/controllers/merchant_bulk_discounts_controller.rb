@@ -11,13 +11,14 @@ class MerchantBulkDiscountsController < ApplicationController
     @bulk_discount = BulkDiscount.new 
   end
 
-  def show 
-    
+  def create 
+    merchant = Merchant.find(params[:merchant_id])
+    bulk_discount = merchant.bulk_discounts.create(bulk_discount_params)
+    redirect_to merchant_bulk_discounts_path(merchant)
   end
 
-  def create 
-    @bulk_discount = @merchant.bulk_discounts.build(bulk_discount_params)
-    redirect_to merchant_bulk_discounts_path(@merchant)
+  def show 
+
   end
 
   def destroy 

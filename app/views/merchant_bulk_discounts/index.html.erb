@@ -6,5 +6,5 @@
     <%= link_to "Delete Bulk Discount #{discount.id}", merchant_bulk_discount_path(:id => discount.id), method: :delete %>
     <% end %>
 </div>
-
-<%= link_to "Create New Bulk Discount", "/merchants/#{@bulk_discounts.first.merchant.id}/bulk_discounts/new" %>
+<br/>
+<p><%= link_to "Create New Bulk Discount", "/merchants/#{@bulk_discounts.first.merchant.id}/bulk_discounts/new" %></p>
