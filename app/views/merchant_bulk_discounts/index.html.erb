@@ -4,4 +4,8 @@
     <p>Percentage: <%= discount.percentage %></p>
     <p>Quantity Threshold: <%= discount.quantity %></p>
     <% end %>
+
+
 </div>
+
+<%= link_to "Create New Bulk Discount", "/merchants/#{@bulk_discounts.first.merchant.id}/new" %>
