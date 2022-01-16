@@ -18,7 +18,17 @@ class MerchantBulkDiscountsController < ApplicationController
   end
 
   def show 
+  end
 
+  def edit 
+  end
+
+  def update
+    if @bulk_discount.update(bulk_discount_params)
+      redirect_to merchant_bulk_discount_path(@merchant, @bulk_discount)
+    else
+      redirect_to edit_merchant_bulk_discount_path(@merchant, @bulk_discount)
+    end
   end
 
   def destroy 
