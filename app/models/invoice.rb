@@ -20,15 +20,14 @@ class Invoice < ApplicationRecord
   end
   
   def total_revenue(merchant = nil)
-    
     if merchant != nil 
       ii = invoice_items.joins(:item).where('items.merchant_id = ?', merchant.id)
       ii.sum("invoice_items.unit_price * invoice_items.quantity")
     else
       invoice_items.sum("unit_price * quantity")
     end
-
   end
+  
   # def applicable_discounts(merchant)
   #   # invoice_items.joins(item: [{merchant: :bulk_discounts}])
   #   # .where("bulk_discounts.quantity <= invoice_items.quantity AND items.merchant_id = #{merchant.id}").select('bulk_discounts.percentage AS b_percentage')
@@ -38,7 +37,7 @@ class Invoice < ApplicationRecord
   #   # .where
   #   # bulk_discounts.where('merchant_id: 100 && invoice_items.quantity >= bulk_discounts.quantity')
   #   # bulk_discounts.where('invoice_items.quantity >= bulk_discounts.quantity AND merchants.id = ?', merchant.id)
-        
+   
   #   # select('sum(bulk_discount.quantity * bulk_discount.percentage * invoice_items.unit_price) AS sum').joins(:bulk_discounts).where('bulk_discount.quantity <= invoice_items.quantity')
   #   # result = invoice_items.includes(:bulk_discounts).where('bulk_discount.quantity <= invoice_items.quantity')
   # end
