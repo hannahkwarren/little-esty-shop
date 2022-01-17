@@ -32,9 +32,9 @@ RSpec.describe InvoiceItem, type: :model do
     end
   end
 
-  describe "InvoiceItem price calculations - NOTE InvoiceItem already has just one merchant"
+  describe "InvoiceItem price calculations - NOTE InvoiceItem already has just one merchant" do
   
-  include_context 'common'
+    include_context 'common'
 
     it "reflects no discounted revenue when quantity threshold unmet" do
       invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, status: 1, quantity:1, unit_price:6000)
@@ -90,4 +90,5 @@ RSpec.describe InvoiceItem, type: :model do
       expect(invoice_item_6.applicable_discount).to eq(nil)
       expect(invoice_item_6.discounted_price).to eq(200000)
     end
+  end
 end
