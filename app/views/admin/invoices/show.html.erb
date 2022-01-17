@@ -2,21 +2,22 @@
   <h3>Invoice ID: <%= @invoice.id %></h3>
   <p>Invoice Status: <%= @invoice.status %></p>
   <p><%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
-  <h5>Customer Name: <%= @invoice.customer.first_name + @invoice.customer.last_name%></h5>
+  <p>Customer Name: <%= @invoice.customer.first_name + @invoice.customer.last_name%></p>
 </div>
 
 <div class="invoice">
   <% @invoice.invoice_items.each do |in_item| %>
-    <p><%= in_item.item.name %></p>
-    <p><%= in_item.quantity %></p>
-    <p><%= in_item.unit_price %></p>
-    <p><%= in_item.status %></p>
+    <p>Item Name: <%= in_item.item.name %></p>
+    <p>Quantity: <%= in_item.quantity %></p>
+    <p>Unit Price: <%= in_item.unit_price %></p>
+    <p>Current Status: <%= in_item.status %></p>
   <% end %>
 </div>
 
-<%= render partial: 'form', locals: { model: [:admin, @invoice] }%>
-
 <div class="total_revenue">
-  <p>Total Revenue: <%= @invoice.total_revenue %></p>
-  <p>Total Discounted Revenue: <%= @invoice.total_discounted_revenue %></p>
+  <p>Total Revenue: <%= number_to_currency(@invoice.total_revenue / 100) %></p>
+  <p>Total Discounted Revenue: <%= number_to_currency(@invoice.total_discounted_revenue / 100) %></p>
 </div>
+
+<h3>Update Invoice:</h3>
+<%= render partial: 'form', locals: { model: [:admin, @invoice] }%>

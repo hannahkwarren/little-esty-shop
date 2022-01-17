@@ -17,7 +17,7 @@ RSpec.describe 'Admin Invoice Show Page' do
     @invoice_item_2 = InvoiceItem.create!(invoice_id:"#{@invoice_2.id}", item_id:"#{@item_2.id}", status: 2, quantity:10, unit_price:700)
     @invoice_item_3 = InvoiceItem.create!(invoice_id:"#{@invoice_3.id}", item_id:"#{@item_2.id}", status: 2, quantity:1, unit_price:700)
 
-    @bulk_discount_1 = BulkDiscount.create(merchant_id: @merch_2, percentage: 10, quantity:10)
+    @bulk_discount_1 = BulkDiscount.create!(merchant_id: @merch_1.id, percentage:10, quantity:10)
   end
 
   it 'shows customer and status information for the invoice' do
@@ -47,7 +47,7 @@ RSpec.describe 'Admin Invoice Show Page' do
     visit admin_invoice_path(@invoice_1)
 
     within ".total_revenue" do
-    expect(page).to have_content("Total Revenue: #{@invoice_1.total_revenue}")
+    expect(page).to have_content("Total Revenue: $6.00")
     end
   end
 
@@ -64,11 +64,10 @@ RSpec.describe 'Admin Invoice Show Page' do
   end
 
   it 'has total discounted revenue' do 
+    visit admin_invoice_path(@invoice_2)
 
-    visit admin_invoice_path(@invoice_2.id)
-
-    expect(page).to have_content("Total Revenue: #{@invoice_2.total_revenue}")
-    expect(page).to have_content("Total Discounted Revenue: #{@invoice_2.total_discounted_revenue}")
+    expect(page).to have_content("Total Revenue: $70.00")
+    expect(page).to have_content("Total Discounted Revenue: $63.00")
   end
 
 end

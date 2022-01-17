@@ -134,7 +134,6 @@ RSpec.describe 'merchant invoices show page' do
       @invoice_2 = Invoice.create!(customer_id: @cust_2.id, status:2)
       @invoice_3 = Invoice.create!(customer_id: @cust_3.id, status:2)
       
-
       @bulk_discount_1 = BulkDiscount.create!(merchant_id: @merch_1.id, percentage: 15, quantity:20)
       @bulk_discount_2 = BulkDiscount.create!(merchant_id: @merch_1.id, percentage: 10, quantity:10)
       @bulk_discount_3 = BulkDiscount.create!(merchant_id: @merch_2.id, percentage: 20, quantity: 6)

@@ -13,7 +13,6 @@ class Invoice < ApplicationRecord
     .where(items: { merchant_id: merchant.id })
     .distinct(:invoice_id)
   end
-
   
   def self.incomplete_invoices
     where(status: "in progress").order(created_at: :asc).distinct(:id)
