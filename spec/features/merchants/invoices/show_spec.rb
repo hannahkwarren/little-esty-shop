@@ -199,7 +199,6 @@ RSpec.describe 'merchant invoices show page' do
       within ".discounted-revenue" do 
         expect(page).to have_content("Total Discounted Revenue: $1,920.00")
       end
-
     end
 
     it "displays discounted revenue as same as total revenue when a merchant has no bulk discounts" do 
@@ -214,6 +213,21 @@ RSpec.describe 'merchant invoices show page' do
       within '.discounted-revenue' do 
         expect(page).to have_content("Total Discounted Revenue: $100.00")
       end
+    end
+
+    it "has a link to the applied bulk discount, if applicable, for each invoice_item on the page" do 
+      invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, status: 2, quantity:10, unit_price:6000)
+      invoice_item_2 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, status: 2, quantity:1, unit_price:10000)
+
+      visit merchant_invoice_path(@merch_1, @invoice_1)
+
+      within ".invoice-items" do 
+        expect(page).to have_link("Bulk Discount")
+      end
+      
+      click_link("Bulk Discount")
+
+      expect(current_path).to eq(merchant_bulk_discount_path(@merch_1, @bulk_discount_2))
     end
   end
 
