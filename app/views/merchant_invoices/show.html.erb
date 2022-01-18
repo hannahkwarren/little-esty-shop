@@ -24,7 +24,7 @@
       <th>Status</th>
       <th>Submit</th>
     </tr>
-  <% @invoice_items.each do |inv_itm| %>
+  <% @invoice.invoice_items.each do |inv_itm| %>
     <tr class="invoice-item-<%= inv_itm.id %>">
       <td><%= inv_itm.item.name%></td>
       <td><%=inv_itm.quantity %></td>
