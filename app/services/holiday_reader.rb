@@ -1,13 +1,14 @@
 class HolidayReader
   def holidays
-    array = []
+    holidays = []
     service.holidays.each do |data|
-      holiday = Holiday.new(data)
-      array << holiday
+      if holidays.length < 3
+        holiday = Holiday.new(data)
+        holidays << holiday
+      end
     end
-    require 'pry'
-    binding.pry
-    holidays = array[0..2]
+
+    holidays
   end
 
   def service
