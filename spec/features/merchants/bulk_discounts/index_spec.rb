@@ -70,4 +70,16 @@ RSpec.describe 'a merchants bulk discounts index page' do
     end
     expect(page).to_not have_link(discount_3.title)
   end
+  it 'lists the next three upcoming holidays' do
+    holiday = HolidayReader.new
+    merchant = Merchant.create!(name: 'I am the merchant')
+    visit merchant_bulk_discounts_path(merchant)
+
+    within '.holidays' do
+      expect(page).to have_content('Upcoming Holidays')
+      expect(page).to have_content("#{holiday.holidays[0].date}, #{holiday.holidays[0].holiday}")
+      expect(page).to have_content("#{holiday.holidays[1].date}, #{holiday.holidays[1].holiday}")
+      expect(page).to have_content("#{holiday.holidays[2].date}, #{holiday.holidays[2].holiday}")
+    end
+  end
 end

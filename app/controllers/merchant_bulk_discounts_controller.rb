@@ -1,6 +1,7 @@
 class MerchantBulkDiscountsController < ApplicationController
   def index
     @bulk_discounts = BulkDiscount.where(merchant_id: params[:merchant_id])
+    @holiday = HolidayReader.new
   end
 
   def show
@@ -13,10 +14,15 @@ class MerchantBulkDiscountsController < ApplicationController
   end
 
   def create
-    bulk_discount = BulkDiscount.create(bulk_discount_params)
-    bulk_discount.merchant_id = params[:merchant_id]
-    bulk_discount.save
-    redirect_to merchant_bulk_discounts_path(bulk_discount.merchant)
+    @bulk_discount = BulkDiscount.create(bulk_discount_params)
+    @bulk_discount.merchant_id = params[:merchant_id]
+    if @bulk_discount.save
+      redirect_to merchant_bulk_discounts_path(@bulk_discount.merchant)
+    else
+      @merchant = @bulk_discount.merchant
+      flash.now[:discount_errors] = 'Merchant Not Created!!!!!!'
+      render 'new'
+    end
   end
 
   def destroy
