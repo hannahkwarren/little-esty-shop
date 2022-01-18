@@ -1,5 +1,16 @@
 <div class="edit-form">
   <%= form_with model: [@bulk_discount.merchant, @bulk_discount], local: true do |f| %>
+    <div>
+      <div class ="error-msgs">
+        <% if @bulk_discount.errors.any? %>
+          <ul>
+            <% @bulk_discount.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
     <%= f.label "title" %>
     <%= f.text_field :title %>
     <%= f.label "Item quantity to qualify for discount" %>
