@@ -106,7 +106,7 @@ RSpec.describe "Merchant Bulk Discounts Index page", type: :feature do
       expect(page).to have_content("Friday, April 15, 2022")
       expect(page).to have_content("Monday, May 30, 2022")
     end
-    save_and_open_page
+    
   end
 
 end

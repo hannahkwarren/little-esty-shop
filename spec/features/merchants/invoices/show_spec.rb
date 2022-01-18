@@ -114,7 +114,7 @@ RSpec.describe 'merchant invoices show page' do
     end
   end
 
-  RSpec.shared_context 'common' do 
+  RSpec.shared_context 'common1' do 
     before do
       @merch_1 = Merchant.create!(name: "Handmade by Hannah")
       @item_1 = Item.create!(name:"Sleepy Robot Mug", description:"For coffee. Lots of coffee.", unit_price:6000, merchant_id: @merch_1.id)
@@ -142,7 +142,7 @@ RSpec.describe 'merchant invoices show page' do
 
   describe "Total Discounted Revenue on the Merchant Invoice Show Page" do
     
-    include_context 'common'
+    include_context 'common1'
     
     it "displays the same number as Total Revenue if no discounts applied" do 
       @invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, status: 2, quantity:1, unit_price:6000) #merch_1

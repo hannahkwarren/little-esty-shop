@@ -6,7 +6,7 @@ RSpec.describe InvoiceItem, type: :model do
     it { should belong_to :item }
   end
 
-  RSpec.shared_context 'common' do 
+  RSpec.shared_context 'common2' do 
 
     before do 
       @merch_1 = Merchant.create!(name: "Handmade by Hannah")
@@ -34,7 +34,7 @@ RSpec.describe InvoiceItem, type: :model do
 
   describe "InvoiceItem price calculations - NOTE InvoiceItem already has just one merchant" do
   
-    include_context 'common'
+    include_context 'common2'
 
     it "reflects no discounted revenue when quantity threshold unmet" do
       invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, status: 1, quantity:1, unit_price:6000)

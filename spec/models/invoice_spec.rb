@@ -71,7 +71,7 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
-  RSpec.shared_context 'common' do 
+  RSpec.shared_context 'common3' do 
 
     before do 
       @merch_1 = Merchant.create!(name: "Handmade by Hannah")
@@ -104,7 +104,7 @@ RSpec.describe Invoice, type: :model do
 
   describe '#total_discounted_revenue' do 
 
-    include_context 'common'
+    include_context 'common3'
 
     it "reflects no discounted revenue when quantity threshold unmet" do
       invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, status: 1, quantity:1, unit_price:6000)
