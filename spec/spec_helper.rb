@@ -34,6 +34,10 @@ RSpec.configure do |config|
     stub_request(:get, 'https://api.github.com/repos/hannahkwarren/little-esty-shop/contributors').to_return(
       status: 200, body: json_response3
     )
+    json_response4 = File.read('spec/fixtures/holiday.json')
+    stub_request(:get, 'https://date.nager.at/api/v3/nextpublicholidays/us').to_return(
+      status: 200, body: json_response4
+    )
   end
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
