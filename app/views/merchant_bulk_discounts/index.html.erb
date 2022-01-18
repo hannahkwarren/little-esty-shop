@@ -1,10 +1,24 @@
+<h1>Bulk Discounts</h1>
+
 <% @bulk_discounts.each do |discount| %>
-    <div class="bulk-discount-<%= discount.id %>" >
-    <h4><%= link_to "Bulk Discount, ID: #{discount.id}", "/merchants/#{discount.merchant.id}/bulk_discounts/#{discount.id}" %></h4>
-    <p>Percentage: <%= discount.percentage %></p>
-    <p>Quantity Threshold: <%= discount.quantity %></p>
-    <%= link_to "Delete Bulk Discount #{discount.id}", merchant_bulk_discount_path(:id => discount.id), method: :delete %>
-    <% end %>
+  <div class="bulk-discount-<%= discount.id %>" >
+  <h4><%= link_to "Bulk Discount, ID: #{discount.id}", "/merchants/#{discount.merchant.id}/bulk_discounts/#{discount.id}" %></h4>
+  <p>Percentage: <%= discount.percentage %></p>
+  <p>Quantity Threshold: <%= discount.quantity %></p>
+  <%= link_to "Delete Bulk Discount #{discount.id}", merchant_bulk_discount_path(:id => discount.id), method: :delete %>
+  <% end %>
 </div>
 <br/>
-<p><%= link_to "Create New Bulk Discount", "/merchants/#{@bulk_discounts.first.merchant.id}/bulk_discounts/new" %></p>
+
+<h3>Upcoming Holidays:</h3>
+<div class="us-holidays">
+  <ul>
+    <% @holidays.usa_upcoming_holidays.each do |holiday| %>
+          <li><%= Time.parse(holiday[:date]).strftime("%A, %B %d, %Y")  %></li>
+      <p><%= holiday[:localName] %></p>
+    <% end %>
+  </ul>
+</div>
+<br/>
+
+<h4><%= link_to "Create New Bulk Discount", "/merchants/#{@bulk_discounts.first.merchant.id}/bulk_discounts/new" %></h4>
