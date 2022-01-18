@@ -3,28 +3,29 @@
 
 
 <div class= "enabled-items">
-<ul>
   <h2>Enabled Items</h2>
-<% @items.enabled.each do |item| %>
-  <li><%= link_to  item.name, merchant_item_path(@merchant, item) %></li>
-  <%= button_to "Disable", merchant_item_path(@merchant, item), params: {status: :disabled}, id: "disable-#{item.id}",  method: :patch %>
-<% end %>
-</ul>
+  <% @merchant.items.enabled.each do |item| %>
+  <ul>
+    <li><%= link_to  item.name, merchant_item_path(@merchant, item) %></li>
+    <%= button_to "Disable", merchant_item_path(@merchant, item), params: {status: :disabled}, id: "disable-#{item.id}",  method: :patch %>
+  <% end %>
+  </ul>
 </div>
 
 <div class= "disabled-items">
-<ul>
   <h2>Disabled Items</h2>
-<% @items.disabled.each do |item| %>
+  <% @merchant.items.disabled.each do |item| %>
+  <ul>
     <li><%= link_to  item.name, merchant_item_path(@merchant, item) %></li>
     <%= button_to "Enable", merchant_item_path(@merchant, item), params: {status: :enabled}, id: "enable-#{item.id}", method: :patch %>
-<% end %>
-</ul>
+  <% end %>
+  </ul>
 </div>
+
 <div class= "top-five">
 <ul>
   <h2>Top 5 Best Selling Items</h2>
-<% @items.top_five.each do |item| %>
+<% @merchant.items.top_five.each do |item| %>
     <div class = "item-<%= item.id %>">
     <li><%= link_to  item.name, merchant_item_path(@merchant, item) %>-<%= number_to_currency(item.sum.to_f / 100) %> in sales</li>
         <p>Top day for <%= item.name %> was <%= item.best_date[0].date.strftime("%A %B %d %Y") %></p>
