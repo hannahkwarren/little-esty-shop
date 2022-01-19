@@ -13,8 +13,18 @@ class MerchantBulkDiscountsController < ApplicationController
 
   def create 
     merchant = Merchant.find(params[:merchant_id])
-    bulk_discount = merchant.bulk_discounts.create(bulk_discount_params)
-    redirect_to merchant_bulk_discounts_path(merchant)
+
+    existing_1 = merchant.bulk_discounts.where('quantity <= ? AND percentage >= ?',bulk_discount_params[:quantity], bulk_discount_params[:percentage]).to_a.count
+
+    existing_2 = merchant.bulk_discounts.where('quantity >= ? AND percentage <= ?',bulk_discount_params[:quantity], bulk_discount_params[:percentage]).to_a.count
+    
+    if existing_1 == 0 && existing_2 == 0 
+      bulk_discount = merchant.bulk_discounts.create(bulk_discount_params)
+      redirect_to merchant_bulk_discounts_path(merchant)
+    else
+      flash[:alert] = "This discount would never be applied, or would be undercutting your profit on an existing discount. Please adjust your inputs."
+      redirect_to new_merchant_bulk_discount_path(merchant)
+    end
   end
 
   def show 
